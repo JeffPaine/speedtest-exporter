@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"os/exec"
@@ -14,6 +16,10 @@ import (
 )
 
 var (
+	port      = flag.Int("port", 2112, "the port the server should listen on")
+	now       = flag.Bool("now", true, "if a speedtest should be run immediately after starting")
+	frequency = flag.Duration("frequency", time.Hour, "how frequently a speed test should be run")
+
 	jitter = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "speedtest_ping_jitter_ms",
 		Help: "Speedtest ping jitter in ms",
@@ -97,18 +103,21 @@ func speedtest() {
 }
 
 func main() {
+	flag.Parse()
+
 	http.Handle("/metrics", promhttp.Handler())
 
 	go func() {
-		speedtest()
-		for range time.Tick(time.Hour) {
+		if *now {
+			speedtest()
+		}
+		for range time.Tick(*frequency) {
 			speedtest()
 		}
 	}()
 
-	port := ":2112"
-	log.Println("server starting, listening on", port)
-	err := http.ListenAndServe(port, nil)
+	log.Println("server starting, listening on port", *port)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", *port), nil)
 	if err != nil {
 		log.Fatalln("ListenAndServe() error: ", err)
 	}
