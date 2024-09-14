@@ -109,8 +109,10 @@ func main() {
 
 	go func() {
 		if *now {
+			log.Println("running an initial speedtest")
 			speedtest()
 		}
+		log.Printf("speedtests will be run every %v\n", *frequency)
 		for range time.Tick(*frequency) {
 			speedtest()
 		}
