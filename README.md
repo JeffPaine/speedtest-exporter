@@ -23,7 +23,7 @@ $ docker run speedtest-exporter -p 2112:2112  # Add --detach to run in the backg
 1. Make sure the `speedtest` binary is on your system `$PATH`
 1. Install the `speedtest-exporter` binary:
    ```shell
-   $ go install github.com/JeffPaine/speedtest-exporter@latest
+   $ go install github.com/jeffpaine/speedtest-exporter@latest
    ```
 1. Run the binary:
    ```shell
@@ -49,3 +49,22 @@ scrape_configs:
     static_configs:
       - targets: ["localhost:2112"]  # Adjust 'localhost' as needed
 ```
+
+## Developer notes
+
+### Build and push a new container image
+
+Following the [GitHub Container Registry
+docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry):
+
+1. Generate a short lived access token
+([docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-to-the-container-registry))
+2. Log in via the CLI:
+   ```shell
+   $ sudo docker login ghcr.io -u jeffpaine --password 'REPLACE_ME'
+   ```
+3. Build and upload
+   ```shell
+   $ sudo docker build --tag ghcr.io/jeffpaine/speedtest-exporter:latest .
+   $ sudo docker push ghcr.io/jeffpaine/speedtest-exporter:latest
+   ```
