@@ -22,19 +22,19 @@ var (
 
 	jitter = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "speedtest_ping_jitter_ms",
-		Help: "Speedtest ping jitter in ms",
+		Help: "Speedtest ping jitter in milliseconds (ms)",
 	})
 	latency = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "speedtest_ping_latency_ms",
-		Help: "Speedtest ping latency in ms",
+		Help: "Speedtest ping latency in milliseconds (ms)",
 	})
 	download = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "speedtest_download_bandwidth_mbps",
-		Help: "Speedtest download bandwidth speed in mbps",
+		Help: "Speedtest download bandwidth speed in megabits per second (Mbps)",
 	})
 	upload = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "speedtest_upload_bandwidth_mbps",
-		Help: "Speedtest upload bandwidth speed in mbps",
+		Help: "Speedtest upload bandwidth speed in megabits per second (Mbps)",
 	})
 	success = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "speedtest_success",
@@ -42,7 +42,7 @@ var (
 	})
 	duration = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "speedtest_duration_ms",
-		Help: "The duration of the speedtest check in ms",
+		Help: "The duration of the speedtest check in milliseconds (ms)",
 	})
 )
 
