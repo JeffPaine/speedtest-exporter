@@ -30,6 +30,12 @@ $ docker run speedtest-exporter -p 2112:2112  # Add --detach to run in the backg
    $ speedtest-exporter
    ```
 
+## Test scrape data
+
+```shell
+$ curl localhost:2112/metrics  # Adjust 'localhost' as needed
+```
+
 ## Scraping with Prometheus
 
 Configure Prometheus to scrap the host that `speedtest-exporter` is running on
@@ -41,5 +47,5 @@ scrape_configs:
   - job_name: "speedtest"
     metrics_path: /metrics
     static_configs:
-      - targets: ["localhost:2112"]  # Replace 'localhost' if running on a different machine.
+      - targets: ["localhost:2112"]  # Adjust 'localhost' as needed
 ```
