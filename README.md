@@ -13,8 +13,7 @@ results are exported continuously until the next speed test is run. The
 From the project's root directory:
 
 ```shell
-$ docker build --tag speedtest-exporter .
-$ docker run speedtest-exporter -p 2112:2112  # Add --detach to run in the background.
+$ docker run ghcr.io/jeffpaine/speedtest-exporter:latest -p 2112:2112
 ```
 
 ## Manual install and run
